@@ -23,6 +23,7 @@ jobs:
     
         - name: Build image locally
           run: |
+            mkdir -p src/accounting/proto
             cp pb/demo.proto src/accounting/proto/demo.proto
             dotnet restore
             docker build -t accounting:latest .
