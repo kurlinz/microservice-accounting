@@ -10,6 +10,23 @@ permissions:
   contents: write
 
 jobs:
+  local-build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: install dotnet sdk
+          uses: actions/setup-dotnet@v3
+          with:
+            dotnet-version: 8.0.x
+    
+        - name: Build image locally
+          run: |
+            cp pb/demo.proto src/accounting/proto/demo.proto
+            dotnet restore
+            docker build -t accounting:latest .
+
   docker-build:
     runs-on: ubuntu-latest
     steps:
